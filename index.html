@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bilal Yaseen Portfolio</title>
+<meta name="description" content="Portfolio of Bilal Yaseen, a web development and digital marketing fresher based in Karachi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: fixed full-height portrait on the right that zooms toward the face and back as the page scrolls; content sits left in frosted panels. */
+:root {
+  --paper: #e9edf1;
+  --ink: #0d1117;
+  --muted: #475160;
+  --accent: #1c3fd1;
+  --glass: rgba(255, 255, 255, 0.78);
+  --line: rgba(13, 17, 23, 0.12);
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --gutter: clamp(16px, 5vw, 88px);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Fixed zooming portrait ---------- */
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--paper);
+}
+.photo {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  aspect-ratio: 2 / 3;
+  transform-origin: 54% 22%;
+  will-change: transform;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 26%);
+          mask-image: linear-gradient(to right, transparent 0, #000 26%);
+}
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 760px) {
+  .photo { left: 0; aspect-ratio: auto; -webkit-mask-image: none; mask-image: none; transform-origin: 54% 18%; }
+  .photo img { object-position: 54% 0; }
+}
+
+/* ---------- Chrome ---------- */
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+  z-index: 30;
+}
+.nav {
+  position: fixed; top: 14px; left: var(--gutter); z-index: 20;
+  display: flex; align-items: center; gap: clamp(10px, 2.4vw, 28px);
+  padding: 8px 18px;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.875rem; font-weight: 600;
+}
+.nav .mark { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.02em; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--accent); }
+.nav .mark { color: var(--ink); }
+@media (max-width: 480px) { .nav .mark { display: none; } .nav { padding: 8px 14px; font-size: 0.8125rem; } }
+
+/* ---------- Content ---------- */
+main { position: relative; z-index: 5; padding-inline: var(--gutter); }
+section, header.hero { max-width: 1200px; }
+.panel {
+  max-width: 600px;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: clamp(22px, 3.4vw, 40px);
+  box-shadow: 0 18px 50px -28px rgba(13, 17, 23, 0.35);
+}
+.panel.wide { max-width: 680px; }
+.eyebrow {
+  margin: 0 0 14px;
+  font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent);
+}
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.03em; }
+h2 { font-size: clamp(1.9rem, 4vw, 2.75rem); line-height: 1.05; font-weight: 800; margin-bottom: 18px; }
+h3 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+
+.hero { min-height: 92svh; display: flex; align-items: center; padding-block: 96px 56px; }
+.hero-inner { max-width: 600px; }
+.hero h1 { font-size: clamp(3.4rem, 9.5vw, 7.5rem); line-height: 0.9; font-weight: 800; margin-bottom: 20px; }
+.role { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.15rem, 2.2vw, 1.5rem); letter-spacing: -0.01em; margin-bottom: 16px; }
+.lead { color: var(--muted); max-width: 52ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn {
+  display: inline-flex; align-items: center; min-height: 46px; padding: 0 22px;
+  border-radius: 999px; border: 1.5px solid var(--ink);
+  font-weight: 700; font-size: 0.9375rem; text-decoration: none;
+  background: transparent; color: var(--ink); cursor: pointer; font-family: inherit;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn:hover { background: var(--ink); color: #fff; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: var(--ink); border-color: var(--ink); }
+@media (max-width: 760px) {
+  .hero { align-items: flex-end; padding-top: 58svh; padding-bottom: 32px; }
+  .hero-inner { background: var(--glass); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border: 1px solid var(--line); border-radius: 20px; padding: 22px; }
+  .hero h1 { font-size: clamp(2.8rem, 15vw, 4rem); }
+}
+
+section { padding-block: clamp(48px, 11vh, 120px); }
+
+.facts { display: grid; gap: 18px; margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line); grid-template-columns: 1fr 1fr; }
+.facts dt { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.facts dd { margin: 0; font-weight: 600; }
+.facts .full { grid-column: 1 / -1; }
+
+.group + .group { margin-top: 26px; }
+.group h3 { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; font-family: var(--font-body); }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.chips li {
+  padding: 9px 16px; border-radius: 999px; font-weight: 600; font-size: 0.9375rem;
+  background: #fff; border: 1px solid var(--line);
+}
+.chips.accent li { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li { display: grid; grid-template-columns: 96px 1fr; gap: 18px; padding: 18px 0; border-top: 1px solid var(--line); }
+.timeline li:first-child { border-top: 0; padding-top: 0; }
+.timeline time { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent); font-size: 0.9375rem; }
+.timeline p { color: var(--muted); font-size: 0.9688rem; margin-top: 4px; }
+.sub { font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; letter-spacing: -0.02em; margin: 30px 0 14px; }
+.sub:first-of-type { margin-top: 0; }
+@media (max-width: 480px) { .timeline li { grid-template-columns: 1fr; gap: 4px; } }
+
+.contact-list { list-style: none; margin: 0 0 24px; padding: 0; }
+.contact-list li { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 14px 0; border-top: 1px solid var(--line); }
+.contact-list li:first-child { border-top: 0; padding-top: 0; }
+.contact-list .label { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.contact-list .value { font-weight: 600; word-break: break-all; user-select: all; }
+.copy { min-height: 38px; padding: 0 16px; font-size: 0.8125rem; }
+
+footer { position: relative; z-index: 5; padding: 40px var(--gutter) 48px; font-size: 0.875rem; color: var(--muted); }
+footer span { background: var(--glass); padding: 6px 12px; border-radius: 999px; }
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="stage" aria-hidden="true">
+  <div class="photo" id="photo"><img src="photo.jpg" alt="" width="1024" height="1536" fetchpriority="high"></div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <span class="mark">Bilal Yaseen</span>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#journey">Journey</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<main>
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <p class="eyebrow">Karachi, Sindh · Seeking an internship</p>
+      <h1>Bilal<br>Yaseen</h1>
+      <p class="role">Web development and digital marketing</p>
+      <p class="lead">A motivated fresher looking for an internship where I can gain practical experience, improve my skills and contribute positively to the organization.</p>
+      <div class="actions">
+        <a class="btn primary" href="#contact">Get in touch</a>
+        <a class="btn" href="#skills">See my skills</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about" aria-labelledby="about-h">
+    <div class="panel">
+      <p class="eyebrow">About</p>
+      <h2 id="about-h">Learning by building and by doing.</h2>
+      <p>I am a motivated fresher who wants to work in digital marketing and web development. I have trained hands-on at Fixit Training Center and Aptech Computer Education, and I am now studying Intermediate at Government National College.</p>
+      <dl class="facts">
+        <div><dt>Based in</dt><dd>Karachi, Sindh</dd></div>
+        <div><dt>Languages</dt><dd>English, Urdu</dd></div>
+        <div class="full"><dt>Outside work</dt><dd>Reading, learning new technologies, problem solving and online research</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-h">
+    <div class="panel">
+      <p class="eyebrow">Skills</p>
+      <h2 id="skills-h">What I can work on.</h2>
+      <div class="group">
+        <h3>Development</h3>
+        <ul class="chips">
+          <li>Front-End Web Developer</li>
+          <li>Back End Developer</li>
+          <li>Full Stack Developer</li>
+          <li>WordPress Developer</li>
+        </ul>
+      </div>
+      <div class="group">
+        <h3>Marketing</h3>
+        <ul class="chips accent">
+          <li>Social Media Marketing</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="journey" aria-labelledby="journey-h">
+    <div class="panel wide">
+      <p class="eyebrow">Journey</p>
+      <h2 id="journey-h">Training and education.</h2>
+      <h3 class="sub">Experience</h3>
+      <ul class="timeline">
+        <li>
+          <time>2025</time>
+          <div><h3>Aptech Education Center</h3><p>Technical trainee in web development at Aptech Computer Education.</p></div>
+        </li>
+        <li>
+          <time>2024</time>
+          <div><h3>Fixit Center</h3><p>Hands-on technical training in digital marketing at Fixit Training Center.</p></div>
+        </li>
+      </ul>
+      <h3 class="sub">Education</h3>
+      <ul class="timeline">
+        <li>
+          <time>2025–2026</time>
+          <div><h3>Government National College</h3><p>Currently pursuing Intermediate.</p></div>
+        </li>
+        <li>
+          <time>2024–2025</time>
+          <div><h3>Bahria Foundation</h3><p>Secondary School Certificate (SSC).</p></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="panel">
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-h">Let's talk about an internship.</h2>
+      <ul class="contact-list">
+        <li>
+          <div><span class="label">Email</span><span class="value" id="v-email">bilalyaseen1128@gmail.com</span></div>
+          <button class="btn copy" type="button" data-copy="v-email">Copy</button>
+        </li>
+        <li>
+          <div><span class="label">Phone</span><span class="value" id="v-phone">+92 333 0271653</span></div>
+          <button class="btn copy" type="button" data-copy="v-phone">Copy</button>
+        </li>
+        <li>
+          <div><span class="label">Location</span><span class="value">Karachi, Sindh</span></div>
+        </li>
+      </ul>
+      <div class="actions" style="margin-top:0">
+        <a class="btn primary" href="https://wa.me/923330271653">Message on WhatsApp</a>
+        <a class="btn" href="#top">Back to top</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><span>© 2026 Bilal Yaseen</span></footer>
+
+<script>
+(function () {
+  var photo = document.getElementById('photo');
+  var bar = document.getElementById('progress');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // [scroll progress, zoom] : wide, closer, face close-up, pulling back, settle
+  var keys = [[0, 1], [0.22, 1.5], [0.46, 2.35], [0.72, 1.7], [1, 1.1]];
+  var cur = 1, running = false;
+
+  function ease(t) { return t * t * (3 - 2 * t); }
+  function zoomAt(p) {
+    for (var i = 0; i < keys.length - 1; i++) {
+      var a = keys[i], b = keys[i + 1];
+      if (p <= b[0]) { var t = ease((p - a[0]) / (b[0] - a[0])); return a[1] + (b[1] - a[1]) * t; }
+    }
+    return keys[keys.length - 1][1];
+  }
+  function progress() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    return max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+  }
+  function tick() {
+    var p = progress();
+    var strength = window.innerWidth < 760 ? 0.7 : 1;
+    var target = reduce ? 1.1 : 1 + (zoomAt(p) - 1) * strength;
+    cur += (target - cur) * (reduce ? 1 : 0.12);
+    photo.style.transform = 'scale(' + cur.toFixed(4) + ')';
+    bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    if (Math.abs(target - cur) > 0.0005) { requestAnimationFrame(tick); } else { running = false; }
+  }
+  function kick() { if (!running) { running = true; requestAnimationFrame(tick); } }
+  window.addEventListener('scroll', kick, { passive: true });
+  window.addEventListener('resize', kick);
+  kick();
+
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.getAttribute('data-copy')).textContent.trim();
+      try {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+        }, function () { btn.textContent = 'Select text'; });
+      } catch (e) { btn.textContent = 'Select text'; }
+    });
+  });
+})();
+</script>
+</body>
+</html>
